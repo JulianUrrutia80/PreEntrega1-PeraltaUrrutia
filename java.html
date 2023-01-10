@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primera Entrega</title>
+</head>
+
+<body>
+    <script>
+        function esNum(val) {
+            return !isNaN(val);
+        }
+        /*Este modulo determina si un par ingresado por parametro es valido*/
+        function esValido(cadUsu) {
+            if (cadUsu.length == 7) {
+                esValido = esNum(cadUsu.charAt(0)) && cadUsu.charAt(1) == '.' && esNum(cadUsu.charAt(2)) && esNum(cadUsu.charAt(3)) && cadUsu.charAt(4) == ':' && esNum(cadUsu.charAt(5)) && esNum(cadUsu.charAt(6));
+            } else {
+                esValido = false;
+            }
+            return esValido;
+        }
+
+        /*Este modulo cuenta la cantidad de ocurrencias de un par determinado en una cadena de muchos pares altura-peso*/
+        let cadena, cadDeterminada;
+        let i, cantOcurr = 0, contError = 0;
+        let cadUsu = prompt("Ingrese una cadena de pares altura-peso");
+        console.log(cadUsu);
+        if (cadUsu.length % 7 == 0 && cadUsu.length != 0) {
+            let cadDeterminada = prompt("Ingrese el par altura-peso que desee buscar iteraciones");
+            console.log(cadDeterminada);
+            if (esValido(cadDeterminada)) {
+                for (i = 0; i < (cadUsu.length - 1); i = i + 7) {
+                    if (esValido(cadUsu.substring(i, i + 7))) {                  
+                        //obtengo un par peso-altura por cada iteracion}
+                        cadena = (cadUsu.substring(i, i + 7));
+                        if (cadena.compareTo(cadDeterminada) == 0) {           
+                            //comparo el par obtenido con el que se busque
+                            cantOcurr++;                                       
+                            //incremento ocurrencia si es igual
+                        }
+                    } else {
+                        contError++;
+                        alert("Revise la cadena de pares altura-peso e ingresela de nuevo correctamente");
+                    }
+                }
+                if (cantOcurr > 0 && contError == 0) {
+                    alert("La cadena " + cadDeterminada + " se repite " + cantOcurr + " veces.");
+                }
+                if (contError == 0 && cantOcurr == 0) {
+                    alert("La cadena " + cadDeterminada + " no se repite");
+                }
+            } else {
+                alert("El par del que desee buscar iteraciones es incorrecto");
+            }
+        } else {
+            alert("La longitud de la cadena no es la correcta");
+        }
+    </script>
+</body>
+</html>
